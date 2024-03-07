@@ -4,7 +4,7 @@ import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 
-public class DatabaseCommands implements Commands {
+public class Database implements Commands {
     private Statement st;
     @Override
     public void Connect() throws SQLException {
@@ -46,7 +46,7 @@ public class DatabaseCommands implements Commands {
 
 
     public static void main(String[] args) throws SQLException {
-        DatabaseCommands db = new DatabaseCommands();
+        Database db = new Database();
         db.Connect();
         db.getImage(1);
     }
