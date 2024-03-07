@@ -6,6 +6,26 @@ import java.sql.*;
 
 public class Database implements Commands {
     private Statement st;
+
+    Database() throws SQLException {
+        // Drop table and create new
+        Connect();
+        st.execute("DROP TABLE IF EXISTS images");
+        st.execute("""
+                CREATE TABLE IF NOT EXISTS images (
+                id SERIAL PRIMARY KEY,
+                base64 varchar not null,
+                tag varchar(69) not null
+                );
+                """);
+        st.execute("""
+                INSERT INTO images(base64, tag) VALUES
+                ('image1', 'car'),
+                ('image2', 'pc'),
+                ('image3', 'dick'),
+                ('image4', 'animal');
+                """);
+    }
     @Override
     public void Connect() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/postgres";
@@ -18,7 +38,7 @@ public class Database implements Commands {
 
     @Override
     public void insertImage(Image image) {
-
+        // insert an image to the database
     }
 
     @Override
@@ -39,15 +59,8 @@ public class Database implements Commands {
         return getImage(""+imageID);
     }
 
-    @Override
-    public void sql(String query) throws SQLException {
-        st.executeQuery(query);
-    }
-
-
     public static void main(String[] args) throws SQLException {
         Database db = new Database();
-        db.Connect();
-        db.getImage(1);
+        db.getImage(4);
     }
 }

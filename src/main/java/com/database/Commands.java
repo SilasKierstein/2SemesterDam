@@ -8,7 +8,6 @@ public interface Commands {
     public void insertImage(Image image);
     public Image getImage(int imageID) throws SQLException;
     public Image getImage(String imageID) throws SQLException;
-    public void sql(String query) throws SQLException;
 
 
 }
