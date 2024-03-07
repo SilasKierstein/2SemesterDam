@@ -3,6 +3,8 @@ module dk.sdu.ecommerceprototype {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires java.sql;
+    requires io.github.cdimascio.dotenv.java;
 
     exports dk.sdu.ecommerceprototype;
     exports dk.sdu.ecommerceprototype.dam;

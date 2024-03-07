@@ -2,11 +2,9 @@ package dk.sdu.ecommerceprototype.dam;
 
 public interface MediaFetcherInterface {
 
-    public Media getMedia(String UUID);
-
-    public Media getMedia(String attributeKey, String attributeValue);
-
-    boolean deleteMedia(String UUID);
-
+    Media getMedia(Long UUID);
+    boolean deleteMedia(Long UUID);
+    boolean saveMedia(Long UUID);
+    boolean updateMedia(Long UUID);
 }
 

@@ -10,7 +10,6 @@ public class Media {
 
     private URL path;
 
-    private Long size;
 
     public String getName() {
         return name;
@@ -24,19 +23,14 @@ public class Media {
         return path;
     }
 
-    public Long getSize() { return size; }
 
-
-
-
-    public Media(String name, String fileType, URL path, Long size) {
+    public Media(String name, String fileType, URL path) {
         if (name == null || name.isEmpty() || fileType == null || fileType.isEmpty()) {
             throw new IllegalArgumentException("Navn og filtype kan ikke være tomme");
         }
         this.name = name;
         this.fileType = fileType;
         this.path = path;
-        this.size = size;
     }
 
     @Override
@@ -44,7 +38,6 @@ public class Media {
         return "Media{" +
                 "name='" + name + '\'' +
                 ", fileType='" + fileType + '\'' +
-                ", size=" + size +
                 ", path=" + path +
                 '}';
     }
