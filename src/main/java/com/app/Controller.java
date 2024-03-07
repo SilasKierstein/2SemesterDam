@@ -1,4 +1,4 @@
-package com.example.dam;
+package com.app;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
