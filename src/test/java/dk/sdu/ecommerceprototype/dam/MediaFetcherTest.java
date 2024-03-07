@@ -10,7 +10,7 @@ public class MediaFetcherTest {
     @Test
     public void returnsImageTest() {
         MediaFetcher fetcher = new MediaFetcher();
-        Media testimage = fetcher.getMedia("1234");
+        Media testimage = fetcher.getMedia(1234L);
         assertEquals("testimage", testimage.getName());
         assertNotEquals("jpg", testimage.getFileType());
         assertEquals("png", testimage.getFileType());
