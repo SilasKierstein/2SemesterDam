@@ -1,11 +1,13 @@
 package com.database;
 
 import org.postgresql.util.PSQLException;
-
+import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.*;
 
 public class Database implements Commands {
     private Statement st;
+private final Dotenv dotenv = Dotenv.load(); // load .env file
+Connection connection ; // connection to the database
 
     Database() throws SQLException {
         // Drop table and create new
@@ -26,14 +28,22 @@ public class Database implements Commands {
                 ('image4', 'animal');
                 """);
     }
+    public boolean isConnected() {
+        return connection != null;
+    }
     @Override
-    public void Connect() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String user = "postgres";
-        String pass = "0000";
+    public void Connect()  {
+        if(!isConnected()) {
+            try { DriverManager.getConnection("jdbc:postgresql://" + dotenv.get("db_host") + ":" + dotenv.get("db_port") + "/" + dotenv.get("db_name"), dotenv.get("db_user"), dotenv.get("db_password"));
+                System.out.println("Connected to postgres database");
+            }catch (SQLException e) {
+                System.out.println("Failed to connected to postgres database + " + e.getCause() + e.getMessage());
 
-        Connection con = DriverManager.getConnection(url, user, pass);
-        st = con.createStatement();
+            }
+
+
+        }
+
     }
 
     @Override
