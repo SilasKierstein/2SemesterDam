@@ -3,15 +3,22 @@ package com.database;
 import org.postgresql.util.PSQLException;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.SQLException;
 
 public class Database implements Commands {
     private Statement st;
 private final Dotenv dotenv = Dotenv.load(); // load .env file
 Connection connection ; // connection to the database
 
+
+
     Database() throws SQLException {
         // Drop table and create new
         Connect();
+        st = connection.createStatement();
         st.execute("DROP TABLE IF EXISTS images");
         st.execute("""
                 CREATE TABLE IF NOT EXISTS images (
@@ -33,8 +40,9 @@ Connection connection ; // connection to the database
     }
     @Override
     public void Connect()  {
-        if(!isConnected()) {
-            try { DriverManager.getConnection("jdbc:postgresql://" + dotenv.get("db_host") + ":" + dotenv.get("db_port") + "/" + dotenv.get("db_name"), dotenv.get("db_user"), dotenv.get("db_password"));
+        if(connection == null) {
+            try {
+                connection = DriverManager.getConnection("jdbc:postgresql://" + dotenv.get("db_host") + ":" + dotenv.get("db_port") + "/" + dotenv.get("db_name"), dotenv.get("db_user"), dotenv.get("db_password"));
                 System.out.println("Connected to postgres database");
             }catch (SQLException e) {
                 System.out.println("Failed to connected to postgres database + " + e.getCause() + e.getMessage());
