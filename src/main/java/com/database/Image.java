@@ -26,4 +26,5 @@ public class Image {
     public void convert(String base64) {
         // converts base64 to image
     }
+
 }
