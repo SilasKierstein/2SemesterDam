@@ -2,12 +2,15 @@ package com.database;
 
 import org.postgresql.util.PSQLException;
 import io.github.cdimascio.dotenv.Dotenv;
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 
 public class Database implements Commands {
     private Statement st;
-    private final Dotenv dotenv = Dotenv.load();
 
+    private final Dotenv dotenv = Dotenv.load();
 
 
     Database() throws SQLException {
@@ -60,11 +63,14 @@ public class Database implements Commands {
 
     @Override
     public Image getImage(int imageID) throws SQLException {
-        return getImage(""+imageID);
+        return getImage("" + imageID);
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
         Database db = new Database();
         db.getImage(4);
+
+
+
     }
 }
