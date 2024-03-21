@@ -36,14 +36,26 @@ public class base64Convert {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
+    public static byte[] convertBase64toFile(String base64String) {
+
+        return Base64.getDecoder().decode(base64String);
+
+    }
 
     public static void main(String[] args) {
         String filePath = "./computer.jpg"; //   base64 encoded image file path to retrieve
         base64Convert base64convert1 = new base64Convert();
 
         try {
+            // encode
             String base64String = base64convert1.convertFileToBase64(filePath);
             System.out.println("base64 encoded string : " + base64String);
+            // decode
+            byte[] decoded = base64convert1.convertBase64toFile(base64String);
+            System.out.println("decoded string : " + new String(decoded));
+            // write the decoded string to byte array
+            Files.write(Path.of(filePath), decoded);
+            System.out.println("decoded image written file");
 
 
         } catch (IOException e) {
