@@ -1,14 +1,13 @@
 package com.controller;
 
-import com.model.Image;
-import com.service.ImageService;
+import com.service.ImageServiceImpl;
 import java.util.List;
 
 public class ImageController {
-    private final ImageService imageService;
+    private final ImageServiceImpl imageServiceImpl;
 
-    public ImageController(ImageService imageService) {
-        this.imageService = imageService;
+    public ImageController(ImageServiceImpl imageServiceImpl) {
+        this.imageServiceImpl = imageServiceImpl;
     }
 
     public void uploadImage(String base64Image, List<String> tagNames) {

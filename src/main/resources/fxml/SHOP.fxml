@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.shop.ShopController">
+     <ComboBox fx:id="imageSizeChoice" layoutX="385.0" layoutY="66.0" prefHeight="25.0" prefWidth="91.0" promptText="size" />
+     <ComboBox fx:id="imageFormatChoice" layoutX="122.0" layoutY="66.0" prefWidth="91.0" promptText="format" />
+     <CheckBox fx:id="saleStickerCheckbox" layoutX="482.0" layoutY="103.0" prefHeight="25.0" prefWidth="91.0" text="sale sticker" />
+     <TextField fx:id="imageIdField" layoutX="218.0" layoutY="119.0" promptText="Indtast ID..." />
+     <Button layoutX="448.0" layoutY="286.0" onAction="#handleDownloadImage" text="Download Billede" />
+     <Button fx:id="transformButton" layoutX="123.0" layoutY="144.0" onAction="#handleTransformImage" prefHeight="25.0" prefWidth="91.0" text="transform" />
+     <Button fx:id="saveButton" layoutX="385.0" layoutY="144.0" onAction="#handleSaveImage" prefHeight="25.0" prefWidth="91.0" text="save" />
+   <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../images/computer.jpg" />
+      </image></ImageView>
+
+</AnchorPane>

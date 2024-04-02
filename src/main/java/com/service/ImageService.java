@@ -1,20 +1,17 @@
 package com.service;
 
 import com.model.Image;
-import com.model.Tag;
-import com.repository.ImageRepository;
-import java.sql.SQLException;
-import java.util.List;
+import com.util.ImageFormat;
 
-public class ImageService {
-    private final ImageRepository imageRepository;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-    public ImageService(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
-    }
-
-    public void saveImageWithTags(Image image, List<Tag> tags) throws SQLException {
-        long imageId = imageRepository.insertImage(image);
-        imageRepository.insertTags(imageId, tags);
-    }
+public interface ImageService {
+    Image getThumbnail(Long imageId);
+    Image getFullSize(Long imageId);
+    Image addSaleSticker(Image image);
+    void saveImage(Image image, ImageFormat format);
+    File downloadImageById(long id) throws IOException;
 }
+

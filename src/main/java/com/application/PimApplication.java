@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.service.ImageService;
+import com.service.ImageServiceImpl;
 import com.repository.ImageRepository;
 import com.config.DatabaseConnection; // Make sure to import your DatabaseConnection class
 
@@ -22,14 +22,14 @@ public class PimApplication extends Application {
         ImageRepository imageRepository = new ImageRepository(connection);
 
         // Create the ImageService with the ImageRepository
-        ImageService imageService = new ImageService(imageRepository);
+        ImageServiceImpl imageServiceImpl = new ImageServiceImpl(imageRepository);
 
         // Assuming you have an FXML file for the PIM layout
         FXMLLoader loader = new FXMLLoader(PimApplication.class.getResource("/fxml/PIM.fxml"));
 
 
         // Create and set the controller for your PIM interface
-        PimController controller = new PimController(imageService);
+        PimController controller = new PimController(imageServiceImpl);
         loader.setController(controller);
 
         Parent root = loader.load();

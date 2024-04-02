@@ -2,7 +2,7 @@ package com.controller.pim;
 
 import com.model.Image;
 import com.model.Tag;
-import com.service.ImageService;
+import com.service.ImageServiceImpl;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -24,11 +24,11 @@ public class PimController {
     @FXML
     private TextField tagsField;
 
-    private ImageService imageService;
+    private ImageServiceImpl imageServiceImpl;
     private File selectedImageFile;
 
-    public PimController(ImageService imageService) {
-        this.imageService = imageService;
+    public PimController(ImageServiceImpl imageServiceImpl) {
+        this.imageServiceImpl = imageServiceImpl;
     }
 
     @FXML
@@ -62,7 +62,7 @@ public class PimController {
                 image.setTags(tags); // Ensure the Image class can handle a list of Tag objects
 
                 // Use the service to save the image and tags to the database
-                imageService.saveImageWithTags(image, tags);
+                imageServiceImpl.saveImageWithTags(image, tags);
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }

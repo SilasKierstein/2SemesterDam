@@ -1,12 +1,14 @@
 package com.repository;
 
 import com.model.Image;
+import com.model.ImageData;
 import com.model.Tag;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class ImageRepository {
     private final Connection connection;
@@ -26,6 +28,28 @@ public class ImageRepository {
             pstmt.execute();
         }
     }
+    public Optional<ImageData> findById(long id) {
+        // Assuming 'connection' is your established JDBC connection
+        String query = "SELECT * FROM images WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, id); // Set the id parameter in the query
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    ImageData imageData = new ImageData();
+                    imageData.setId(resultSet.getLong("id"));
+                    imageData.setBase64(resultSet.getString("base64"));
+                    // Set any other fields you have in your ImageData object
+                    return Optional.of(imageData);
+                }
+            }
+        } catch (SQLException e) {
+            // Handle the exception (log it, wrap it in a runtime exception, or just print the stack trace)
+            e.printStackTrace();
+        }
+        return Optional.empty(); // Return an empty Optional if the image wasn't found
+    }
+
 
     private void createTagsTableIfNotExists() throws SQLException {
         final String createTableSQL = """
