@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -33,6 +34,8 @@ public class ShopController {
     private ImageView imageView; // Assuming there's an ImageView to display images
     @FXML
     private TextField imageIdField;
+    @FXML
+    private Button loadImageByIdButton;
 
 
     private ImageService imageService;
@@ -52,6 +55,35 @@ public class ShopController {
     public ShopController(ImageService imageService) {
         this.imageService = imageService;
     }
+    @FXML
+    protected void handleLoadImageById(ActionEvent event) {
+        String imageIdStr = imageIdField.getText();
+        if (!imageIdStr.isEmpty()) {
+            try {
+                long imageId = Long.parseLong(imageIdStr);
+                File imageFile = imageService.downloadImageById(imageId);
+
+                if (imageFile != null) {
+                    // Read the image file into a BufferedImage
+                    BufferedImage bufferedImage = ImageIO.read(imageFile);
+                    imageView.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+                } else {
+                    // Handle case where image is not found or cannot be loaded
+                    // Show an error message to the user
+                }
+            } catch (NumberFormatException e) {
+                // Handle invalid number format in the image ID field
+                // Show an error message to the user
+            } catch (IOException e) {
+                // Handle IO exceptions that occur during image loading
+                // Show an error message to the user
+            }
+        } else {
+            // Handle case where the image ID field is empty
+            // Show an error message to the user
+        }
+    }
+
 
     @FXML
     protected void handleDownloadImage(ActionEvent event) {
@@ -100,7 +132,7 @@ public class ShopController {
                 } else {
 
                     BufferedImage image = ImageIO.read(inputStream);
-                    bufferedImage = Transform.addSaleSticker(bufferedImage, image, 20,20);
+                    bufferedImage = Transform.addSaleSticker(bufferedImage, image);
                 }
             }
 

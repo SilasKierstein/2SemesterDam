@@ -16,16 +16,48 @@ public class Transform {
         return resize(originalImage, size.getWidth(), size.getHeight());
     }
 
-    public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker, int x, int y) {
-        Graphics2D g2d = originalImage.createGraphics();
-        try {
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-            g2d.drawImage(sticker, x, y, null);
-        } finally {
-            g2d.dispose();
-        }
-        return originalImage;
+//    public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker, int x, int y) {
+//        Graphics2D g2d = originalImage.createGraphics();
+//        try {
+//            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+//            g2d.drawImage(sticker, x, y, null);
+//        } finally {
+//            g2d.dispose();
+//        }
+//        return originalImage;
+//    }
+public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker) throws IOException {
+    double scalePercentage = 0.25; // Sticker will be 25% of original image's width
+
+    // Calculate new width and height for sticker
+    int newWidth = (int) (originalImage.getWidth() * scalePercentage);
+    int newHeight = (int) (sticker.getHeight() * ((double) newWidth / sticker.getWidth()));
+
+    // Resize the sticker image
+    Image scaledSticker = sticker.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+    BufferedImage scaledStickerBuffered = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+
+    // Draw the resized sticker image onto a new BufferedImage
+    Graphics2D g2dSticker = scaledStickerBuffered.createGraphics();
+    g2dSticker.drawImage(scaledSticker, 0, 0, null);
+    g2dSticker.dispose();
+
+    // Calculate the position to place the sticker on the original image
+    int x = (originalImage.getWidth() - newWidth) / 2;
+    int y = (originalImage.getHeight() - newHeight) / 2;
+
+    // Draw the resized sticker onto the original image at the calculated position
+    Graphics2D g2d = originalImage.createGraphics();
+    try {
+        g2d.setComposite(AlphaComposite.SrcOver);
+        g2d.drawImage(scaledStickerBuffered, x, y, null);
+    } finally {
+        g2d.dispose();
     }
+
+    return originalImage;
+}
+
 
     public static byte[] convertImageFormat(BufferedImage image, ImageFormat format) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
