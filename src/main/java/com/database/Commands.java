@@ -17,8 +17,8 @@ public interface Commands {
      */
 
     public int insertImage(Image image); // TODO return id
-    public Image getImage(int imageID) throws SQLException;
-    public Image getImage(String imageID) throws SQLException;
+    public Image getImage(int imageID) throws SQLException, DAMException;
+    public Image getImage(String imageID) throws SQLException, DAMException;
 
 
 }
