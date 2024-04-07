@@ -1,4 +1,4 @@
-package com.config;
+package com.persistence.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;

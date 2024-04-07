@@ -1,4 +1,4 @@
-package com.controller.pim;
+package com.presentation.controller.pim;
 
 import com.model.Image;
 import com.model.Tag;

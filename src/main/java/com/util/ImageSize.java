@@ -1,8 +1,8 @@
 package com.util;
 public enum ImageSize {
-    THUMBNAIL(150, 150),
-    MEDIUM(500, 500),
-    FULL(1200, 1200);
+    THUMBNAIL(128, 128),
+    MEDIUM(512, 512),
+    FULL(1024, 1024);
 
     private final int width;
     private final int height;

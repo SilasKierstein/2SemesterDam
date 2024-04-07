@@ -1,8 +1,10 @@
-package com.repository;
+package com.persistence.repository;
 
+import com.exception.ImageNotFoundException;
 import com.model.Image;
 import com.model.ImageData;
 import com.model.Tag;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +30,7 @@ public class ImageRepository {
             pstmt.execute();
         }
     }
-    public Optional<ImageData> findById(long id) {
+    public Optional<ImageData> findById(long id) throws ImageNotFoundException {
         // Assuming 'connection' is your established JDBC connection
         String query = "SELECT * FROM images WHERE id = ?";
 
@@ -41,6 +43,8 @@ public class ImageRepository {
                     imageData.setBase64(resultSet.getString("base64"));
                     // Set any other fields you have in your ImageData object
                     return Optional.of(imageData);
+                } else {
+                    throw new ImageNotFoundException("No image found within the dam with ID : " + id);
                 }
             }
         } catch (SQLException e) {

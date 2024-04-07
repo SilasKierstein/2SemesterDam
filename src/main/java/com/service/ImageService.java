@@ -1,17 +1,16 @@
 package com.service;
 
+import com.exception.ImageNotFoundException;
 import com.model.Image;
-import com.util.ImageFormat;
+import com.model.Tag;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public interface ImageService {
-    Image getThumbnail(Long imageId);
-    Image getFullSize(Long imageId);
-    Image addSaleSticker(Image image);
-    void saveImage(Image image, ImageFormat format);
-    File downloadImageById(long id) throws IOException;
+    void saveImageWithTags(Image image, List<Tag> tags) throws SQLException;
+    File downloadImageById(long id) throws IOException, ImageNotFoundException;
 }
 

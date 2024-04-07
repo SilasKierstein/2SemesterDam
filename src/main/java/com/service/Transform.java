@@ -11,21 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Transform {
-    public static BufferedImage resizeImage(BufferedImage originalImage, ImageSize size) {
-        // Call the existing resize method with the width and height from the ImageSize enum
-        return resize(originalImage, size.getWidth(), size.getHeight());
-    }
 
-//    public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker, int x, int y) {
-//        Graphics2D g2d = originalImage.createGraphics();
-//        try {
-//            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-//            g2d.drawImage(sticker, x, y, null);
-//        } finally {
-//            g2d.dispose();
-//        }
-//        return originalImage;
-//    }
+
 public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker) throws IOException {
     double scalePercentage = 0.25; // Sticker will be 25% of original image's width
 
@@ -43,8 +30,8 @@ public static BufferedImage addSaleSticker(BufferedImage originalImage, Buffered
     g2dSticker.dispose();
 
     // Calculate the position to place the sticker on the original image
-    int x = (originalImage.getWidth() - newWidth) / 2;
-    int y = (originalImage.getHeight() - newHeight) / 2;
+    int x = (int) (((originalImage.getWidth() - newWidth) / 2) + ((originalImage.getWidth() - newWidth)/(2.2)));
+    int y = (int) (((originalImage.getHeight() - newHeight) / 2) + ((originalImage.getHeight() - newHeight) / (2.2)));
 
     // Draw the resized sticker onto the original image at the calculated position
     Graphics2D g2d = originalImage.createGraphics();
@@ -59,11 +46,7 @@ public static BufferedImage addSaleSticker(BufferedImage originalImage, Buffered
 }
 
 
-    public static byte[] convertImageFormat(BufferedImage image, ImageFormat format) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(image, format.name(), baos);
-        return baos.toByteArray();
-    }
+
 
     public static BufferedImage resize(BufferedImage originalImage, int targetWidth, int targetHeight) {
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
@@ -76,9 +59,71 @@ public static BufferedImage addSaleSticker(BufferedImage originalImage, Buffered
         return outputImage;
     }
 
-    public static void saveImage(BufferedImage image, String formatName, File outputFile) throws IOException {
-        if (!ImageIO.write(image, formatName, outputFile)) {
-            throw new IOException("Could not write image using format: " + formatName);
+    public static void saveImage(BufferedImage image, File outputFile) throws IOException {
+        if (!ImageIO.write(image, "png", outputFile)) {
+            throw new IOException("Could not write image using format: " + ".png");
         }
     }
+
+    public static BufferedImage cropAndResizeImage(BufferedImage originalImage, ImageSize size) {
+        int targetWidth = size.getWidth();
+        int targetHeight = size.getHeight();
+
+        double targetAspect = (double) targetWidth / targetHeight;
+        double imageAspect = (double) originalImage.getWidth() / originalImage.getHeight();
+
+        int cropWidth = originalImage.getWidth();
+        int cropHeight = originalImage.getHeight();
+
+        if (imageAspect > targetAspect) {
+            // Billedet er for bredt
+            cropWidth = (int) (targetAspect * cropHeight);
+        } else if (imageAspect < targetAspect) {
+            // Billedet er for højt
+            cropHeight = (int) (cropWidth / targetAspect);
+        }
+
+        // Beregn startpunktet for beskæring
+        int cropStartX = (originalImage.getWidth() - cropWidth) / 2;
+        int cropStartY = (originalImage.getHeight() - cropHeight) / 2;
+
+        // Beskær billedet
+        BufferedImage croppedImage = originalImage.getSubimage(cropStartX, cropStartY, cropWidth, cropHeight);
+
+        // Skalér det beskårne billede
+        return resize(croppedImage, targetWidth, targetHeight);
+    }
+    public static BufferedImage cropAndResizeImage(BufferedImage originalImage) {
+        // Målet er at skabe et kvadratisk billede, så vi tager den mindste dimension
+        int size = Math.min(originalImage.getWidth(), originalImage.getHeight());
+
+        // Beregn startpunktet for beskæring for at centrere det kvadratiske område
+        int cropStartX = (originalImage.getWidth() - size) / 2;
+        int cropStartY = (originalImage.getHeight() - size) / 2;
+
+        // Beskær billedet til et kvadrat
+        BufferedImage croppedImage = originalImage.getSubimage(cropStartX, cropStartY, size, size);
+
+        // Da billedet allerede er kvadratisk, er yderligere skalering ikke nødvendig
+        return croppedImage;
+    }
+    public static BufferedImage processImageForWebshop(BufferedImage originalImage, ImageSize size, BufferedImage sticker) throws IOException {
+        // Først crop og resize billedet til de ønskede dimensioner
+        BufferedImage adjustedImage = cropAndResizeImage(originalImage, size);
+
+        // Derefter tilføj "sale sticker" til det justerede billede
+        BufferedImage finalImage = addSaleSticker(adjustedImage, sticker);
+
+        return finalImage;
+    }
+    public static BufferedImage processImageForWebshop(BufferedImage originalImage, BufferedImage sticker) throws IOException {
+        // Først crop og resize billedet til de ønskede dimensioner
+        BufferedImage adjustedImage = cropAndResizeImage(originalImage);
+
+        // Derefter tilføj "sale sticker" til det justerede billede
+        BufferedImage finalImage = addSaleSticker(adjustedImage, sticker);
+
+        return finalImage;
+    }
+
 }

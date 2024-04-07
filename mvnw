@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/shop
 # ----------------------------------------------------------------------------
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -72,7 +72,7 @@ esac
 
 if [ -z "$JAVA_HOME" ] ; then
   if [ -r /etc/gentoo-release ] ; then
-    JAVA_HOME=`java-config --jre-home`
+    JAVA_HOME=`java-com.persistence.config.config --jre-home`
   fi
 fi
 

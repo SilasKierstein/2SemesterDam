@@ -1,0 +1,6 @@
+.my-borderpane-style {
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-padding: 10px; /* Justering af afstand fra kanten */
+    /* andre stilarter */
+}

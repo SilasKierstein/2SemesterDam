@@ -1,13 +1,14 @@
-package com.application;
-import com.controller.pim.PimController;
+package com.presentation.application;
+
+import com.persistence.config.DatabaseConnection;
+import com.persistence.repository.ImageRepository;
+import com.presentation.controller.pim.PimController;
+import com.service.ImageServiceImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.service.ImageServiceImpl;
-import com.repository.ImageRepository;
-import com.config.DatabaseConnection; // Make sure to import your DatabaseConnection class
 
 import java.sql.Connection;
 

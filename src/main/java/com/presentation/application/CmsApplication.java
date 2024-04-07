@@ -1,10 +1,9 @@
-package com.application;
+package com.presentation.application;
 
 
-
-import com.config.DatabaseConnection;
-import com.controller.shop.ShopController;
-import com.repository.ImageRepository;
+import com.persistence.config.DatabaseConnection;
+import com.persistence.repository.ImageRepository;
+import com.presentation.controller.cms.CmsController;
 import com.service.ImageService;
 import com.service.ImageServiceImpl;
 import javafx.application.Application;
@@ -15,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.sql.Connection;
 
-public class ShopApplication extends Application {
+public class CmsApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,13 +24,13 @@ public class ShopApplication extends Application {
         ImageRepository imageRepository = new ImageRepository(connection);
         ImageService imageService = new ImageServiceImpl(imageRepository);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SHOP.fxml"));
-        loader.setControllerFactory(c -> new ShopController(imageService));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CMS.fxml"));
+        loader.setControllerFactory(c -> new CmsController(imageService));
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
-        primaryStage.setTitle("Shop Application");
+        primaryStage.setTitle("CMS Application");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

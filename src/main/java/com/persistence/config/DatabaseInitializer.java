@@ -1,4 +1,4 @@
-package com.config;
+package com.persistence.config;
 
 import java.sql.Connection;
 import java.sql.SQLException;

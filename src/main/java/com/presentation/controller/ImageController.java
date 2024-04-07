@@ -1,4 +1,4 @@
-package com.controller;
+package com.presentation.controller;
 
 import com.service.ImageServiceImpl;
 import java.util.List;
