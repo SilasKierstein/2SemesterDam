@@ -1,6 +1,6 @@
 .my-borderpane-style {
-    -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-padding: 10px; /* Justering af afstand fra kanten */
-    /* andre stilarter */
+    -fx-border-color: #5f6a6e; /* Grå farve for metaleffekt */
+    -fx-border-width: 4; /* Tykkelse af kantlinjen */
+    -fx-background-color: #bdc3c7; /* Lysere grå baggrund for at skabe kontrast */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); /* Skyggeeffekt for dybde */
 }
