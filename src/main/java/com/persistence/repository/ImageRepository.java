@@ -18,7 +18,9 @@ public class ImageRepository {
         this.connection = connection;
         createImageTableIfNotExists();
         createTagsTableIfNotExists();
+        createStickerTableIfNotExists();
     }
+
     private void createImageTableIfNotExists() throws SQLException {
         final String createTableSQL = """
             CREATE TABLE IF NOT EXISTS images (
@@ -30,6 +32,32 @@ public class ImageRepository {
             pstmt.execute();
         }
     }
+    private void createTagsTableIfNotExists() throws SQLException {
+        final String createTableSQL = """
+            CREATE TABLE IF NOT EXISTS tags (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                image_id BIGINT NOT NULL,
+                FOREIGN KEY (image_id) REFERENCES images(id)
+            );
+            """;
+        try (PreparedStatement pstmt = connection.prepareStatement(createTableSQL)) {
+            pstmt.execute();
+        }
+    }
+    private void createStickerTableIfNotExists() throws SQLException {
+        final String createTableSQL = """
+            CREATE TABLE IF NOT EXISTS stickers (
+                id SERIAL PRIMARY KEY,
+                base64 TEXT NOT NULL
+            );
+            """;
+        try (PreparedStatement pstmt = connection.prepareStatement(createTableSQL)) {
+            pstmt.execute();
+        }
+    }
+
+
     public Optional<ImageData> findById(long id) throws ImageNotFoundException {
         // Assuming 'connection' is your established JDBC connection
         String query = "SELECT * FROM images WHERE id = ?";
@@ -55,19 +83,6 @@ public class ImageRepository {
     }
 
 
-    private void createTagsTableIfNotExists() throws SQLException {
-        final String createTableSQL = """
-            CREATE TABLE IF NOT EXISTS tags (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                image_id BIGINT NOT NULL,
-                FOREIGN KEY (image_id) REFERENCES images(id)
-            );
-            """;
-        try (PreparedStatement pstmt = connection.prepareStatement(createTableSQL)) {
-            pstmt.execute();
-        }
-    }
 
 
     public long insertImage(Image image) throws SQLException {

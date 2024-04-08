@@ -12,38 +12,88 @@ import java.io.IOException;
 
 public class Transform {
 
+//
+//public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker) throws IOException {
+//    double scalePercentage = 0.25; // Sticker will be 25% of original image's width
+//
+//    // Calculate new width and height for sticker
+//    int newWidth = (int) (originalImage.getWidth() * scalePercentage);
+//    int newHeight = (int) (sticker.getHeight() * ((double) newWidth / sticker.getWidth()));
+//
+//    // Resize the sticker image
+//    Image scaledSticker = sticker.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+//    BufferedImage scaledStickerBuffered = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+//
+//    // Draw the resized sticker image onto a new BufferedImage
+//    Graphics2D g2dSticker = scaledStickerBuffered.createGraphics();
+//
+//    // Forbedrer billedkvaliteten (valgfrit)
+//    g2dSticker.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+//    g2dSticker.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+//    g2dSticker.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//
+//
+//    g2dSticker.drawImage(scaledSticker, 0, 0, null);
+//    g2dSticker.dispose();
+//
+//    // Calculate the position to place the sticker on the original image
+//    int x = (int) (((originalImage.getWidth() - newWidth) / 2) + ((originalImage.getWidth() - newWidth)/(2.2)));
+//    int y = (int) (((originalImage.getHeight() - newHeight) / 2) + ((originalImage.getHeight() - newHeight) / (2.2)));
+//
+//    // Draw the resized sticker onto the original image at the calculated position
+//    Graphics2D g2d = originalImage.createGraphics();
+//    try {
+//        g2d.setComposite(AlphaComposite.SrcOver);
+//        g2d.drawImage(scaledStickerBuffered, x, y, null);
+//    } finally {
+//        g2d.dispose();
+//    }
+//
+//    return originalImage;
+//}
 
-public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker) throws IOException {
-    double scalePercentage = 0.25; // Sticker will be 25% of original image's width
+    public static BufferedImage addSaleSticker(BufferedImage originalImage, BufferedImage sticker) throws IOException {
+        double scalePercentage = 0.25; // Sticker will be 25% of original image's width
 
-    // Calculate new width and height for sticker
-    int newWidth = (int) (originalImage.getWidth() * scalePercentage);
-    int newHeight = (int) (sticker.getHeight() * ((double) newWidth / sticker.getWidth()));
+        // Calculate new width and height for sticker
+        int newWidth = (int) (originalImage.getWidth() * scalePercentage);
+        int newHeight = (int) (sticker.getHeight() * ((double) newWidth / sticker.getWidth()));
 
-    // Resize the sticker image
-    Image scaledSticker = sticker.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-    BufferedImage scaledStickerBuffered = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        // Resize the sticker image
+        Image scaledSticker = sticker.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        BufferedImage scaledStickerBuffered = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
 
-    // Draw the resized sticker image onto a new BufferedImage
-    Graphics2D g2dSticker = scaledStickerBuffered.createGraphics();
-    g2dSticker.drawImage(scaledSticker, 0, 0, null);
-    g2dSticker.dispose();
+        // Draw the resized sticker image onto a new BufferedImage
+        Graphics2D g2dSticker = scaledStickerBuffered.createGraphics();
+        g2dSticker.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2dSticker.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2dSticker.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2dSticker.drawImage(scaledSticker, 0, 0, null);
+        g2dSticker.dispose();
 
-    // Calculate the position to place the sticker on the original image
-    int x = (int) (((originalImage.getWidth() - newWidth) / 2) + ((originalImage.getWidth() - newWidth)/(2.2)));
-    int y = (int) (((originalImage.getHeight() - newHeight) / 2) + ((originalImage.getHeight() - newHeight) / (2.2)));
+        // Placing the sticker in the bottom right corner
+        int x = originalImage.getWidth() - newWidth - 10; // 10 pixels from the right edge
+        int y = originalImage.getHeight() - newHeight - 10; // 10 pixels from the bottom edge
 
-    // Draw the resized sticker onto the original image at the calculated position
-    Graphics2D g2d = originalImage.createGraphics();
-    try {
-        g2d.setComposite(AlphaComposite.SrcOver);
-        g2d.drawImage(scaledStickerBuffered, x, y, null);
-    } finally {
-        g2d.dispose();
+        // Draw the resized sticker onto the original image at the calculated position
+        Graphics2D g2d = originalImage.createGraphics();
+        try {
+            // Rotation angle (in radians) and pivot points for rotation
+            double angle = Math.toRadians(-15); // For example, -45 degrees
+            int pivotX = x + newWidth / 2;
+            int pivotY = y + newHeight / 2;
+
+            g2d.setComposite(AlphaComposite.SrcOver);
+            g2d.rotate(angle, pivotX, pivotY); // Rotate around the center of the sticker
+            g2d.drawImage(scaledStickerBuffered, x, y, null);
+            g2d.rotate(-angle, pivotX, pivotY); // Rotate back to compensate for the earlier rotation
+        } finally {
+            g2d.dispose();
+        }
+
+        return originalImage;
     }
 
-    return originalImage;
-}
 
 
 

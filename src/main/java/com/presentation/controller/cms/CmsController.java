@@ -106,7 +106,7 @@ public class CmsController {
 
                 // Anvend transformationer her, hvis valgt
                 if (saleStickerCheckbox.isSelected()) {
-                    InputStream inputStream = getClass().getResourceAsStream("/images/saleSticker.png");
+                    InputStream inputStream = getClass().getResourceAsStream("/images/sale_sticker_2.png");
                     if (inputStream != null) {
                         BufferedImage saleSticker = ImageIO.read(inputStream);
                         // Antager at Transform klassen har en metode til at anvende en sticker
@@ -147,7 +147,7 @@ public class CmsController {
             // If the sale sticker option is selected
             if (saleStickerCheckbox.isSelected()) {
                 // Define the inputStream right before reading the sticker image
-                InputStream inputStream = getClass().getResourceAsStream("/images/saleSticker.png");
+                InputStream inputStream = getClass().getResourceAsStream("/images/sale_sticker_2.png");
                 if (inputStream == null) {
                     // Handle the error condition: resource not found
                     showAlert("Resource sale_sticker.png not found", Alert.AlertType.ERROR);
