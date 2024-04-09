@@ -48,7 +48,7 @@
             <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#2197ff00" height="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="153.0" />
          </graphic>
       </Button>
-      <TextField fx:id="textField" layoutX="298.0" layoutY="111.0" prefHeight="30.0" prefWidth="357.0" promptText="Write tags.." style="-fx-background-color: transparent; -fx-text-fill: #CFCFCF;">
+      <TextField fx:id="textField" layoutX="298.0" layoutY="109.0" prefHeight="30.0" prefWidth="357.0" promptText="Write tags.." style="-fx-background-color: transparent; -fx-text-fill: #CFCFCF;">
          <font>
             <Font name="Inter Italic" size="16.0" />
          </font>
@@ -60,7 +60,7 @@
                   <Font name="Inter Italic" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="74.0" text="69" textFill="#cfcfcf">
+            <Label fx:id="idLabel" layoutX="10.0" layoutY="10.0" onMouseClicked="#updateId" prefHeight="30.0" prefWidth="74.0" text="69" textFill="#cfcfcf">
                <font>
                   <Font size="16.0" />
                </font>

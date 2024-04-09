@@ -136,6 +136,7 @@ public class Controller {
     @FXML
     public void upload() throws SQLException, IOException {
         App.db.insertImage(file, textField.getText());
+        App.db.getImage(5);
     }
 
     @FXML

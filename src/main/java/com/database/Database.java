@@ -28,7 +28,7 @@ public class Database implements Commands {
                 INSERT INTO images(base64, tag) VALUES
                 ('image1', 'car'),
                 ('image2', 'pc'),
-                ('image3', 'dick'),
+                ('image3', 'cpu'),
                 ('image4', 'animal');
                 """);
     }
