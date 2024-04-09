@@ -43,6 +43,12 @@ public class Database implements Commands {
         st = con.createStatement();
     }
 
+    public int getLastImageID() throws SQLException {
+        ResultSet rs = st.executeQuery("SELECT id FROM images ORDER BY id DESC LIMIT 1");
+        rs.next();
+        return Integer.parseInt(rs.getString(1));
+    }
+
     @Override
     public void insertImage(File file, String tag) throws SQLException, IOException {
         String encodedImg = base64.encode(file);
@@ -54,7 +60,6 @@ public class Database implements Commands {
         ResultSet rs = st.executeQuery(String.format("SELECT base64 FROM images WHERE id = %s", imageID));
         try {
             rs.next();
-            System.out.println();
             String file = "C:\\Users\\silas\\OneDrive\\Uni\\2_Semester\\SemesterProjekt\\DAM\\src\\main\\resources\\images\\test.png";
             base64.decode(file, rs.getString(1));
             return null;
@@ -73,6 +78,6 @@ public class Database implements Commands {
     public static void main(String[] args) throws SQLException {
         Database db = new Database();
 
-        db.getImage(5);
+        db.getLastImageID();
     }
 }

@@ -37,11 +37,17 @@ public class Controller {
     private ImageView preview;
     @FXML
     private javafx.scene.control.TextField textField;
+    @FXML
+    private javafx.scene.control.Label totalImages;
     double offsetX;
     double offsetY;
     Stage stage;
     File file;
 
+    @FXML
+    public void initialize() throws SQLException {
+        updateTotal();
+    }
 
     @FXML
     protected void onMouseEnter() {
@@ -140,6 +146,11 @@ public class Controller {
     @FXML
     public void download() {
         System.out.println("download");
+    }
+
+    @FXML
+    public void updateTotal() throws SQLException {
+        totalImages.setText("" + App.db.getLastImageID());
     }
 
 }
