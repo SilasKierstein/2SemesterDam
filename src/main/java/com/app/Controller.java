@@ -34,10 +34,6 @@ public class Controller {
     @FXML
     private ScrollPane scroll;
     @FXML
-    private ImageView preview;
-    @FXML
-    private javafx.scene.control.TextField textField;
-    @FXML
     private javafx.scene.control.Label totalImages;
     double offsetX;
     double offsetY;
@@ -115,29 +111,6 @@ public class Controller {
         stage.show();
     }
 
-    @FXML
-    public void selectImage() {
-        FileChooser fileChooser = new FileChooser();
-
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-
-        //Show open file dialog
-        file = fileChooser.showOpenDialog(null);
-
-        if (file != null) {
-            Image image = new Image(file.toURI().toString());
-            preview.setImage(image);
-        }
-    }
-
-    @FXML
-    public void upload() throws SQLException, IOException {
-        App.db.insertImage(file, textField.getText());
-        App.db.getImage(5);
-    }
 
     @FXML
     public void search() {
