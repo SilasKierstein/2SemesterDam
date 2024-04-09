@@ -1,5 +1,9 @@
 package com.database;
 
+import javafx.scene.image.Image;
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -16,8 +20,10 @@ public interface Commands {
      * @return ID of the saved image
      */
 
-    public int insertImage(Image image); // TODO return id
     public Image getImage(int imageID) throws SQLException, DAMException;
+
+    void insertImage(File file, String tag) throws SQLException, IOException;
+
     public Image getImage(String imageID) throws SQLException, DAMException;
 
 

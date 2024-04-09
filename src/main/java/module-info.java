@@ -5,6 +5,7 @@ module com.app {
     requires org.postgresql.jdbc;
     requires java.desktop;
     requires io.github.cdimascio.dotenv.java;
+    requires org.apache.commons.io;
 
 
     exports com.app;

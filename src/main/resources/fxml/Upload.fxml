@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1100.0" style="-fx-background-radius: 60;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.Controller">
+   <children>
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#222428" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1100.0" />
+      <ImageView fitHeight="720.0" fitWidth="1100.0">
+         <image>
+            <Image url="@../images/Upload.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="exit" layoutX="1057.0" layoutY="2.0" minHeight="19.0" minWidth="25.0" mnemonicParsing="false" onAction="#onClick" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="22.0" prefWidth="25.0" style="-fx-background-color: transparent;" textFill="WHITE">
+         <graphic>
+            <ImageView blendMode="ADD">
+               <image>
+                  <Image url="@../images/exit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="minimize" layoutX="1021.0" layoutY="1.0" mnemonicParsing="false" onAction="#onMinimizeClick" onMouseEntered="#onMouseEnterMinimize" onMouseExited="#onMouseExit" style="-fx-background-color: transparent;" textFill="WHITE">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../images/minimize.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Pane fx:id="dragBar" onMouseDragged="#dragBarDragged" onMousePressed="#dragBarPressed" prefHeight="28.0" prefWidth="1035.0" />
+      <Button fx:id="imageBtn" layoutX="26.0" layoutY="265.0" mnemonicParsing="false" onAction="#imageClick" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#2197ff00" height="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="153.0" />
+         </graphic>
+      </Button>
+      <Button fx:id="uploadBtn" layoutX="26.0" layoutY="154.0" mnemonicParsing="false" onAction="#overviewClick" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#2197ff00" height="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="153.0" />
+         </graphic>
+      </Button>
+      <TextField fx:id="textField" layoutX="298.0" layoutY="111.0" prefHeight="30.0" prefWidth="357.0" promptText="Write tags.." style="-fx-background-color: transparent; -fx-text-fill: #CFCFCF;">
+         <font>
+            <Font name="Inter Italic" size="16.0" />
+         </font>
+      </TextField>
+      <HBox layoutX="310.0" layoutY="178.0" prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="24.0" text="id:" textFill="#cfcfcf">
+               <font>
+                  <Font name="Inter Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="74.0" text="69" textFill="#cfcfcf">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Button fx:id="select" layoutX="290.0" layoutY="238.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="77.0" prefWidth="176.0" style="-fx-background-color: transparent;" />
+      <ImageView fx:id="preview" fitHeight="285.0" fitWidth="733.0" layoutX="282.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/emptyImg.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="upload" layoutX="491.0" layoutY="242.0" mnemonicParsing="false" onAction="#upload" prefHeight="77.0" prefWidth="176.0" style="-fx-background-color: transparent;" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1100.0" style="-fx-background-radius: 60;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.Controller">
+   <children>
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#222428" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1100.0" />
+      <ImageView fitHeight="720.0" fitWidth="1100.0">
+         <image>
+            <Image url="@../images/Images.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="exit" layoutX="1057.0" layoutY="2.0" minHeight="19.0" minWidth="25.0" mnemonicParsing="false" onAction="#onClick" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="22.0" prefWidth="25.0" style="-fx-background-color: transparent;" textFill="WHITE">
+         <graphic>
+            <ImageView blendMode="ADD">
+               <image>
+                  <Image url="@../images/exit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="minimize" layoutX="1021.0" layoutY="1.0" mnemonicParsing="false" onAction="#onMinimizeClick" onMouseEntered="#onMouseEnterMinimize" onMouseExited="#onMouseExit" style="-fx-background-color: transparent;" textFill="WHITE">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../images/minimize.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Pane fx:id="dragBar" onMouseDragged="#dragBarDragged" onMousePressed="#dragBarPressed" prefHeight="28.0" prefWidth="1035.0" />
+      <Button fx:id="imageBtn" layoutX="32.0" layoutY="265.0" mnemonicParsing="false" onAction="#imageClick" prefHeight="37.0" prefWidth="188.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#2197ff00" height="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="153.0" />
+         </graphic>
+      </Button>
+      <Button fx:id="uploadBtn" layoutX="33.0" layoutY="209.0" mnemonicParsing="false" onAction="#uploadClick" prefHeight="37.0" prefWidth="188.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#2197ff00" height="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="153.0" />
+         </graphic>
+      </Button>
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="312.0" layoutY="295.0" pannable="true" prefHeight="271.0" prefWidth="730.0" style="-fx-background-color: transparent;" stylesheets="@styles.css" vbarPolicy="ALWAYS">
+         <content>
+            <ImageView fitHeight="297.0" fitWidth="707.0">
+               <image>
+                  <Image url="@../images/emptyImg2.png" />
+               </image>
+            </ImageView>
+         </content>
+      </ScrollPane>
+      <TextField layoutX="299.0" layoutY="148.0" prefHeight="30.0" prefWidth="356.0" promptText="Write tags" style="-fx-background-color: transparent; -fx-text-fill: #CFCFCF;">
+         <font>
+            <Font name="Inter Italic" size="16.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="298.0" layoutY="209.0" prefHeight="30.0" prefWidth="356.0" promptText="Write id's" style="-fx-background-color: transparent; -fx-text-fill: #CFCFCF;">
+         <font>
+            <Font name="Inter Italic" size="16.0" />
+         </font>
+      </TextField>
+      <Button layoutX="297.0" layoutY="612.0" mnemonicParsing="false" onAction="#search" prefHeight="78.0" prefWidth="173.0" style="-fx-background-color: transparent;" />
+      <Button layoutX="487.0" layoutY="609.0" mnemonicParsing="false" onAction="#download" prefHeight="78.0" prefWidth="173.0" style="-fx-background-color: transparent;" />
+   </children>
+</AnchorPane>
